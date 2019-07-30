@@ -7,18 +7,22 @@ import (
 	"io"
 	"log"
 	"os"
-	"sync"
 	"time"
 
 	"google.golang.org/grpc"
 )
 
-var client pb.ResultClient
-var upStream *pb.Result_ConntectMasterClient
-var serverConn *grpc.ClientConn
-var mutex = &sync.Mutex{}
+var (
+	// client is the current slave
+	client pb.ResultClient
+	// the stream form which the client will listen for master commands
+	upStream *pb.Result_ConntectMasterClient
+	// serverConn is the grpc connection to master
+	serverConn *grpc.ClientConn
+)
 
 // connectToMaster connects the client(slave) to the master
+// once the connection is made it will also wait form the server and listen for commands
 func connectToMaster(executor *Executor) {
 
 	stream, err := client.ConntectMaster(context.Background(), &pb.ConnectionRequest{

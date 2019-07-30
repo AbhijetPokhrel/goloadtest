@@ -53,6 +53,8 @@ func (server *Server) sendCommand(clientID string, cmd *pb.ExecutionCommand) {
 }
 
 // ConntectMaster records the task result
+// once the connection is made it will add the client strem to clientStreams map
+// the strem is made to runnig forever so that we can send commands to client at specific event
 func (server *Server) ConntectMaster(in *pb.ConnectionRequest, stream pb.Result_ConntectMasterServer) error {
 
 	server.addNewClient(in.Id, stream)
@@ -91,14 +93,17 @@ func (server *Server) PostSummary(ctx context.Context, in *pb.Summary) (*pb.Exec
 	}
 
 	if in.IsLast == true {
+		// if its the last stream the master tells the slave to stop
 		cmd.Type = stopExec
+		// we will also record as one client completed its task
 		server.NotifyTaskCompleted()
 	}
 
 	return &cmd, nil
 }
 
-// NotifyTaskCompleted is called when all the task of a slave has been completed
+// NotifyTaskCompleted is called when the task of a slave has been completed
+// when all slave notifies about task completion the master will summarize the overall result
 func (server *Server) NotifyTaskCompleted() {
 	server.totalCompleted++
 	if server.totalCompleted >= server.totalSlaves {
@@ -107,7 +112,7 @@ func (server *Server) NotifyTaskCompleted() {
 	}
 }
 
-// ConnectToMaster connects to the master and registers the slave stream to the server map
+// addNewClient add a client strem to clientStreams map based in clientId
 func (server *Server) addNewClient(clientID string, stream pb.Result_ConntectMasterServer) {
 
 	log.Printf("New Client : %s", clientID)
