@@ -1,25 +1,19 @@
 # goloadtest
-<pre>
 
-An example of implementation of runnning test of huge number of task using compute power of different clusters(machines).
-Here we have made apiExecutor.go where we defined our task. All it does is make a simple get request to a specific url as 
-specified in the .env file. We can run this task multiple times by running a slave cluster. We can have multile slave 
-cluster which send the summary of task to master cluster. Each slave cluster can run number of tasks. We can run 
-different slave clusters to make more task execute in differet machine. This can help to run a complex task in different
-machine so that more compute power can be achieved.
+An example of implementation of runnning test of huge number of task using compute power of different clusters(machines).Here we have made apiExecutor.go where we defined our task. All it does is make a simple get request to a specific url as specified in the .env file. We can run this task multiple times by running a slave cluster. We can have multile slave cluster which send the summary of task to master cluster. Each slave cluster can run number of tasks. We can run different slave clusters to make more task execute in differet machine. This can help to run a complex task in differentmachine so that more compute power can be achieved.
 
 The message between master and slave are exchaged using grpc protocol. See result/result.proto for more details.
  
 - Supports multiple clusters
 - Push the summary of every cluster to the master cluster
 
-Build
+# Build
 -------
   1. create new .env file and paste the contents of .env_example
   2. make build
 
 
-Architecture
+# Architecture
 -------------
 
   - A slave is the cluster who send the summary of task to master
@@ -28,7 +22,9 @@ Architecture
 
   * A single master cluster can be run by the following command
 
+      ```
       ./goloadtest MASTER SERVER_IP PORT NAME_OF_MASTER
+      ```
       
   Here MASTER is the name of the mode. The SERVER_IP and PORT is ip and port of the server to listen to.
 
@@ -36,7 +32,9 @@ Architecture
 
   * A slave cluster can be run as 
 
-      ./goloadtest SLAVE SERVER_IP PORT UNIQUE_NAME_OF_CLIENT NUM_OF_TASKS_TO_RUN BATCH_NUM_OF_TASKS_TO_RUN
+     ```
+     ./goloadtest SLAVE SERVER_IP PORT UNIQUE_NAME_OF_CLIENT NUM_OF_TASKS_TO_RUN BATCH_NUM_OF_TASKS_TO_RUN
+     ```
 
   Here the SLAVE is the name of mode. The SERVER_IP and PORT is the ip and port at which MASTER is listening at.
 
@@ -47,4 +45,4 @@ Architecture
     * BATCH_NUM_OF_TASKS_TO_RUN :  The tasks are run in batch. This param specifies how many task to run at once
     
 
-</pre>
+
