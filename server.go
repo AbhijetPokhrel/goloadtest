@@ -1,4 +1,4 @@
-package main
+package goloadtest
 
 import (
 	"bufio"
@@ -26,7 +26,7 @@ const (
 
 // Server is the grpc server for master
 // only the master has the server runnning
-// executor is the executor of the programF
+// executor is the executor of the program
 // clientStreams is the map of client Id to the client stream :: HERE client means the slaves
 // totalSlaves is the total numner of slaves connected
 // totalCompleted is the number of slaves who have completed the task

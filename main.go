@@ -1,4 +1,4 @@
-// package main is the exaple of implementation of runnning huge number of task using  compute power of different clusters(machines)
+// Package goloadtest is the exaple of implementation of runnning huge number of task using  compute power of different clusters(machines)
 // here grpc is used as a protocol for communication between the clusters
 // A cluster can be MASTER or SLAVE
 // MASTER cluster gives commands to the SLAVE clusters
@@ -7,7 +7,7 @@
 // This demo task does nothing but makes request to specific url as a get request.
 // We can run this task in multiple cluster to test how the url performs on heavy loads of requests
 // You can implemet you own version of the APIExecutorTask and make it performa specific task on multiple machines
-package main
+package goloadtest
 
 import (
 	"fmt"
