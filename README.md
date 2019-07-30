@@ -10,7 +10,10 @@ The message between master and slave are exchaged using grpc protocol. See resul
 ## Build
 -------
   1. create new .env file and paste the contents of .env_example
-  2. make build
+  2. run the build command
+  ```
+  make build
+  ```
 
 
 ## Architecture
