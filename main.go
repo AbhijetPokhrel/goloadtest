@@ -1,3 +1,12 @@
+// package main is the exaple of implementation of runnning huge number of task using  compute power of different clusters(machines)
+// here grpc is used as a protocol for communication between the clusters
+// A cluster can be MASTER or SLAVE
+// MASTER cluster gives commands to the SLAVE clusters
+// SLAVE clusters will connecte to MASTER cluster and listens for commands
+// We have used here APIExecutorTask as a demo task
+// This demo task does nothing but makes request to specific url as a get request.
+// We can run this task in multiple cluster to test how the url performs on heavy loads of requests
+// You can implemet you own version of the APIExecutorTask and make it performa specific task on multiple machines
 package main
 
 import (
@@ -10,6 +19,7 @@ import (
 )
 
 var (
+	// the mode in which the current program is running. It can be MASTER or SLAVE
 	mode string
 )
 
@@ -25,7 +35,7 @@ func main() {
 
 	mode := os.Getenv("MODE")
 
-	executor := loadExecutor()
+	executor := getExcutor()
 
 	if mode == "MASTER" {
 		loadMasterModules(executor)
@@ -46,6 +56,9 @@ func readArguments() {
 	}
 }
 
+// returns a task interface pointer
+// here APIExecutor is a task interface
+// you can load your custom task here
 func getTask(id string) *APIExecutorTask {
 	task := APIExecutorTask{
 		ID: fmt.Sprintf("%s%s", id, os.Getenv("CLIENT_ID")),
@@ -53,12 +66,13 @@ func getTask(id string) *APIExecutorTask {
 	return &task
 }
 
-func loadExecutor() *Executor {
+func getExcutor() *Executor {
 	executor := Executor{}
 	executor.init()
 	return &executor
 }
 
+// loadMasterModules loads the neccesary params for master cluster
 func loadMasterModules(executor *Executor) {
 	server := Server{
 		executor: executor,
@@ -68,6 +82,7 @@ func loadMasterModules(executor *Executor) {
 	srartGRPCServer(&server)
 }
 
+// loadSlaveModules loads the prams necessary for slave cluster
 func loadSlaveModules(executor *Executor) {
 	numOfReq, _ := strconv.Atoi(os.Getenv("NUM_OF_TASKS"))
 	for i := 0; i < numOfReq; i++ {
