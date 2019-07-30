@@ -1,0 +1,48 @@
+
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "result";
+option java_outer_classname = "ResultProto";
+
+package result;
+
+// The Result service definition.
+service Result {
+  // rescord the result
+  rpc ConntectMaster(ConnectionRequest) returns (stream ExecutionCommand) {}
+  rpc postSummary(Summary) returns(ExecutionCommand) {}
+}
+
+message Summary{
+
+  int32 successCount = 1;
+  int32 failedCount = 2;
+  int32 startTime = 3;
+  repeated TaskResult results = 4;
+  bool isLast = 5;
+  string id = 6;
+}
+
+
+message ConnectionRequest {
+  string msg = 1;
+  string id = 2;
+  int64 tasks = 3;
+  int64 time = 4;
+}
+
+message TaskResult{
+  string msg = 1;
+  string id = 2;
+  bool isError = 3;
+  int64 time = 4;
+}
+
+// exection command message
+// the time in ns from when the execution will start or stop
+message ExecutionCommand{
+  string type = 1;
+  int64 time = 2; 
+}
