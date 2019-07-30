@@ -7,13 +7,13 @@ The message between master and slave are exchaged using grpc protocol. See resul
 - Supports multiple clusters
 - Push the summary of every cluster to the master cluster
 
-# Build
+## Build
 -------
   1. create new .env file and paste the contents of .env_example
   2. make build
 
 
-# Architecture
+## Architecture
 -------------
 
   - A slave is the cluster who send the summary of task to master
@@ -22,9 +22,9 @@ The message between master and slave are exchaged using grpc protocol. See resul
 
   * A single master cluster can be run by the following command
 
-      ```
-      ./goloadtest MASTER SERVER_IP PORT NAME_OF_MASTER
-      ```
+  ```
+  ./goloadtest MASTER SERVER_IP PORT NAME_OF_MASTER
+  ```
       
   Here MASTER is the name of the mode. The SERVER_IP and PORT is ip and port of the server to listen to.
 
@@ -32,9 +32,9 @@ The message between master and slave are exchaged using grpc protocol. See resul
 
   * A slave cluster can be run as 
 
-     ```
-     ./goloadtest SLAVE SERVER_IP PORT UNIQUE_NAME_OF_CLIENT NUM_OF_TASKS_TO_RUN BATCH_NUM_OF_TASKS_TO_RUN
-     ```
+  ```
+  ./goloadtest SLAVE SERVER_IP PORT UNIQUE_NAME_OF_CLIENT NUM_OF_TASKS_TO_RUN BATCH_NUM_OF_TASKS_TO_RUN
+  ```
 
   Here the SLAVE is the name of mode. The SERVER_IP and PORT is the ip and port at which MASTER is listening at.
 
