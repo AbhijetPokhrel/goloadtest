@@ -9,12 +9,16 @@ option java_outer_classname = "ResultProto";
 package result;
 
 // The Result service definition.
+// The server implemts this service for posting results to master as well as execute the commands
+// based on the result
 service Result {
   // rescord the result
   rpc ConntectMaster(ConnectionRequest) returns (stream ExecutionCommand) {}
   rpc postSummary(Summary) returns(ExecutionCommand) {}
 }
 
+// Summary message
+// TaskResult is the list of results in a batch of task execution
 message Summary{
 
   int32 successCount = 1;
@@ -26,6 +30,8 @@ message Summary{
 }
 
 
+// ConnectionRequest message
+// this message is used when a slave wants to connect to the master
 message ConnectionRequest {
   string msg = 1;
   string id = 2;
@@ -40,7 +46,8 @@ message TaskResult{
   int64 time = 4;
 }
 
-// exection command message
+// ExecutionCommand message
+// its the messgae command sent my the MASTER to the SLAVE
 // the time in ns from when the execution will start or stop
 message ExecutionCommand{
   string type = 1;

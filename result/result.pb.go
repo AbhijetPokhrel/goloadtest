@@ -24,6 +24,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+// Summary message
+// TaskResult is the list of results in a batch of task execution
 type Summary struct {
 	SuccessCount         int32         `protobuf:"varint,1,opt,name=successCount,proto3" json:"successCount,omitempty"`
 	FailedCount          int32         `protobuf:"varint,2,opt,name=failedCount,proto3" json:"failedCount,omitempty"`
@@ -103,6 +105,8 @@ func (m *Summary) GetId() string {
 	return ""
 }
 
+// ConnectionRequest message
+// this message is used when a slave wants to connect to the master
 type ConnectionRequest struct {
 	Msg                  string   `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
 	Id                   string   `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
@@ -229,7 +233,8 @@ func (m *TaskResult) GetTime() int64 {
 	return 0
 }
 
-// exection command message
+// ExecutionCommand message
+// its the messgae command sent my the MASTER to the SLAVE
 // the time in ns from when the execution will start or stop
 type ExecutionCommand struct {
 	Type                 string   `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
