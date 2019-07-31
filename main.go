@@ -9,7 +9,7 @@
 // We can run this task in multiple cluster to test how the url performs on heavy loads of requests.
 // You can implemet you own version of the APIExecutorTask and make it performa specific task on multiple
 // machines.
-package goloadtest
+package main
 
 import (
 	"fmt"

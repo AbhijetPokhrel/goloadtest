@@ -1,4 +1,4 @@
-package goloadtest
+package main
 
 import (
 	"context"
