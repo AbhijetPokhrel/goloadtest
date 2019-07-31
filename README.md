@@ -17,7 +17,7 @@ The message between master and slave are exchaged using grpc protocol. See resul
 
 
 ## Architecture
--------------
+----------------
 
   - A slave is the cluster who send the summary of task to master
   - A master is the cluste who give command to slave and listens for task summary
@@ -27,6 +27,8 @@ The message between master and slave are exchaged using grpc protocol. See resul
 
   ```
   ./goloadtest MASTER SERVER_IP PORT NAME_OF_MASTER
+  
+  eg : ./goloadtest MASTER 0.0.0.0 5001 testmaster
   ```
       
   Here MASTER is the name of the mode. The SERVER_IP and PORT is ip and port of the server to listen to.
@@ -37,6 +39,8 @@ The message between master and slave are exchaged using grpc protocol. See resul
 
   ```
   ./goloadtest SLAVE SERVER_IP PORT UNIQUE_NAME_OF_CLIENT NUM_OF_TASKS_TO_RUN BATCH_NUM_OF_TASKS_TO_RUN
+  
+  eg: ./goloadtest SLAVE 192.168.0.2 5001 testslave1 10000 1000
   ```
 
   Here the SLAVE is the name of mode. The SERVER_IP and PORT is the ip and port at which MASTER is listening at.
@@ -48,4 +52,10 @@ The message between master and slave are exchaged using grpc protocol. See resul
     * BATCH_NUM_OF_TASKS_TO_RUN :  The tasks are run in batch. This param specifies how many task to run at once
     
 
+## Running the app
+--------------------
+
+1. First run the master
+2. Then run slaves
+3. Once all slaves are connected type "start" in the master console. After this all the slaves must do their tasks
 
