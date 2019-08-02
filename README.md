@@ -1,6 +1,6 @@
 # goloadtest
 
-An example of implementation of runnning test of huge number of task using compute power of different clusters(machines).Here we have made apiExecutor.go where we defined our task. All it does is make a simple get request to a specific url as specified in the .env file. We can run this task multiple times by running a slave cluster. We can have multile slave cluster which send the summary of task to master cluster. Each slave cluster can run number of tasks. We can run different slave clusters to make more task execute in differet machine. This can help to run a complex task in differentmachine so that more compute power can be achieved.
+This is an example of implementing distributed programming concept with go and gRPC. Simple demonstration of runnning test of huge number of task using compute power of different clusters(machines) is done. Here we have made apiExecutor.go where we defined our task. All it does is make a simple get request to a specific url as specified in the .env file. We can run this task multiple times by running a slave cluster. We can have multile slave cluster which send the summary of task to master cluster. Each slave cluster can run number of tasks. We can run different slave clusters to make more task execute in differet machine. This can help to run a complex task in differentmachine so that more compute power can be achieved.
 
 The message between master and slave are exchaged using grpc protocol. See result/result.proto for more details.
  
